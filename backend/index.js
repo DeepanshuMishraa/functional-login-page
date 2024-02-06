@@ -4,6 +4,7 @@ const port = 3000;
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
+const cors = require("cors");
 
 const connectDb = async()=>{
     try{
@@ -17,8 +18,10 @@ const connectDb = async()=>{
 
 //MiddleWares
 dotenv.config();
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use('/api/auth',authRoute);
+
 
 app.listen(port,()=>{
     connectDb();
